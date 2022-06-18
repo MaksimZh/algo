@@ -72,4 +72,14 @@ class LinkedList:
         return count
 
     def insert(self, afterNode, newNode):
-        pass # здесь будет ваш код
+        if afterNode is None:
+            if self.head is None:
+                self.tail = newNode
+            else:
+                newNode.next = self.head.next
+            self.head = newNode
+        else:
+            newNode.next = afterNode.next
+            afterNode.next = newNode
+            if newNode.next is None:
+                self.tail = newNode
