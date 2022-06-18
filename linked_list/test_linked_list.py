@@ -99,7 +99,14 @@ class Test(unittest.TestCase):
         l.add_in_tail(Node(2))
         l.clean()
         self.checkList(l, [])
-
+    
+    def test_len(self):
+        l = LinkedList()
+        self.assertEqual(l.len(), 0)
+        l.add_in_tail(Node(1))
+        self.assertEqual(l.len(), 1)
+        l.add_in_tail(Node(2))
+        self.assertEqual(l.len(), 2)
 
 if __name__ == '__main__':
     unittest.main()
