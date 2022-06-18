@@ -90,6 +90,10 @@ class Test(unittest.TestCase):
         self.checkList(l, [])
         l.delete(4, all=True)
         self.checkList(l, [])
+        for node in nodes[:2]:
+            l.add_in_tail(node)
+        l.delete(0, all=True)
+        self.checkList(l, [])
 
     def test_clean(self):
         l = LinkedList()
