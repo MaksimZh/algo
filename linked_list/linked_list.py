@@ -45,8 +45,10 @@ class LinkedList:
                     last.next = node.next
                 if node.next is None:
                     self.tail = last
-                return
-            last = node
+                if not all:
+                    break
+            else:
+                last = node
             node = node.next
 
     def clean(self):

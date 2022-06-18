@@ -35,14 +35,14 @@ class Test(unittest.TestCase):
         for node in nodes:
             l.add_in_tail(node)
         self.assertIs(l.find(2), nodes[2])
-        self.assertIs(l.find(4), None)
+        self.assertIs(l.find(42), None)
 
     def test_delete(self):
         l = LinkedList()
         nodes = [Node(0), Node(1), Node(2), Node(3), Node(2)]
         for node in nodes:
             l.add_in_tail(node)
-        l.delete(4)
+        l.delete(42)
         self.checkList(l, nodes)
         l.delete(2)
         self.checkList(l, nodes[:2] + nodes[3:])
@@ -52,9 +52,33 @@ class Test(unittest.TestCase):
         self.checkList(l, [nodes[1], nodes[3]])
         l.delete(1)
         self.checkList(l, [nodes[3]])
+        l.delete(1)
+        self.checkList(l, [nodes[3]])
         l.delete(3)
         self.checkList(l, [])
         l.delete(3)
+        self.checkList(l, [])
+
+    def test_delete_all(self):
+        l = LinkedList()
+        nodes = [Node(0), Node(0), Node(1), Node(1), Node(4), Node(2), Node(3), Node(3), Node(2)]
+        for node in nodes:
+            l.add_in_tail(node)
+        l.delete(42, all=True)
+        self.checkList(l, nodes)
+        l.delete(2, all=True)
+        self.checkList(l, nodes[:5] + nodes[6:8])
+        l.delete(1, all=True)
+        self.checkList(l, nodes[:2] + nodes[4:5] + nodes[6:8])
+        l.delete(0, all=True)
+        self.checkList(l, nodes[4:5] + nodes[6:8])
+        l.delete(3, all=True)
+        self.checkList(l, nodes[4:5])
+        l.delete(3, all=True)
+        self.checkList(l, nodes[4:5])
+        l.delete(4, all=True)
+        self.checkList(l, [])
+        l.delete(4, all=True)
         self.checkList(l, [])
 
 
