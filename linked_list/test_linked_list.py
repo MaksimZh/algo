@@ -81,6 +81,15 @@ class Test(unittest.TestCase):
         l.delete(4, all=True)
         self.checkList(l, [])
 
+    def test_clean(self):
+        l = LinkedList()
+        l.clean()
+        self.checkList(l, [])
+        l.add_in_tail(Node(1))
+        l.add_in_tail(Node(2))
+        l.clean()
+        self.checkList(l, [])
+
 
 if __name__ == '__main__':
     unittest.main()
