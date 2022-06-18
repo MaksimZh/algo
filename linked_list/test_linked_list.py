@@ -37,6 +37,16 @@ class Test(unittest.TestCase):
         self.assertIs(l.find(2), nodes[2])
         self.assertIs(l.find(42), None)
 
+    def test_find_all(self):
+        l = LinkedList()
+        self.assertListEqual(l.find_all(2), [])
+        nodes = [Node(0), Node(1), Node(2), Node(3), Node(2)]
+        for node in nodes:
+            l.add_in_tail(node)
+        self.assertListEqual(l.find_all(2), [nodes[2], nodes[4]])
+        self.assertListEqual(l.find_all(42), [])
+        self.assertListEqual(l.find_all(3), [nodes[3]])
+
     def test_delete(self):
         l = LinkedList()
         nodes = [Node(0), Node(1), Node(2), Node(3), Node(2)]
