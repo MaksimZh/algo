@@ -3,6 +3,11 @@ import unittest
 from linked_list_2 import Node, LinkedList2
 
 
+def fillListTail(l, source):
+    for s in source:
+        l.add_in_tail(s)
+
+
 class Test(unittest.TestCase):
 
     def checkList(self, l, test):
@@ -23,11 +28,13 @@ class Test(unittest.TestCase):
 
     def test_add(self):
         l = LinkedList2()
-        n = [Node(0), Node(1)]
+        n = [Node(0), Node(1), Node(2), Node(3)]
         self.checkList(l, [])
         l.add_in_tail(n[0])
         self.checkList(l, n[0:1])
         l.add_in_tail(n[1])
+        self.checkList(l, n[0:2])
+        fillListTail(l, n[2:])
         self.checkList(l, n)
 
 
