@@ -84,6 +84,30 @@ class Test(unittest.TestCase):
         l.delete(3)
         self.checkList(l, [])
 
+    def test_delete_all(self):
+        l = LinkedList2()
+        n = [Node(0), Node(0), Node(1), Node(1), Node(4), Node(2), Node(3), Node(3), Node(2)]
+        fillListTail(l, n)
+        l.delete(42, all=True)
+        self.checkList(l, n)
+        l.delete(2, all=True)
+        self.checkList(l, n[:5] + n[6:8])
+        l.delete(1, all=True)
+        self.checkList(l, n[:2] + n[4:5] + n[6:8])
+        l.delete(0, all=True)
+        self.checkList(l, n[4:5] + n[6:8])
+        l.delete(3, all=True)
+        self.checkList(l, n[4:5])
+        l.delete(3, all=True)
+        self.checkList(l, n[4:5])
+        l.delete(4, all=True)
+        self.checkList(l, [])
+        l.delete(4, all=True)
+        self.checkList(l, [])
+        fillListTail(l, n[:2])
+        l.delete(0, all=True)
+        self.checkList(l, [])
+
 
 if __name__ == '__main__':
     unittest.main()
