@@ -38,5 +38,17 @@ class Test(unittest.TestCase):
         self.checkList(l, n)
 
 
+    def test_find(self):
+        l = LinkedList2()
+        n = [Node(0), Node(1), Node(2), Node(3)]
+        self.assertIs(l.find(42), None)
+        fillListTail(l, n[0:1])
+        self.assertIs(l.find(42), None)
+        self.assertIs(l.find(0), n[0])
+        fillListTail(l, n[1:])
+        self.assertIs(l.find(42), None)
+        self.assertIs(l.find(2), n[2])
+
+
 if __name__ == '__main__':
     unittest.main()
