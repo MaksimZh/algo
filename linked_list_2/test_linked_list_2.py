@@ -63,6 +63,27 @@ class Test(unittest.TestCase):
         self.assertListEqual(l.find_all(2), n[2:4])
         self.assertListEqual(l.find_all(3), n[-1:])
 
+    def test_delete(self):
+        l = LinkedList2()
+        n = [Node(0), Node(1), Node(2), Node(3), Node(2)]
+        fillListTail(l, n)
+        l.delete(42)
+        self.checkList(l, n)
+        l.delete(2)
+        self.checkList(l, n[:2] + n[3:])
+        l.delete(2)
+        self.checkList(l, n[:2] + n[3:4])
+        l.delete(0)
+        self.checkList(l, [n[1], n[3]])
+        l.delete(1)
+        self.checkList(l, [n[3]])
+        l.delete(1)
+        self.checkList(l, [n[3]])
+        l.delete(3)
+        self.checkList(l, [])
+        l.delete(3)
+        self.checkList(l, [])
+
 
 if __name__ == '__main__':
     unittest.main()
