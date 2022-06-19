@@ -68,7 +68,13 @@ class LinkedList2:
         return 0 # здесь будет ваш код
 
     def insert(self, afterNode, newNode):
-        pass # здесь будет ваш код
+        if (afterNode is None) or (afterNode is self.tail):
+            self.add_in_tail(newNode)
+        else:
+            newNode.next = afterNode.next
+            afterNode.next.prev = newNode
+            afterNode.next = newNode
+            newNode.prev = afterNode
 
     def add_in_head(self, newNode):
         pass # здесь будет ваш код

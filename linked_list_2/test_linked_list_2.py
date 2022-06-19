@@ -108,6 +108,18 @@ class Test(unittest.TestCase):
         l.delete(0, all=True)
         self.checkList(l, [])
 
+    def test_insert(self):
+        l = LinkedList2()
+        n = [Node(0), Node(1), Node(2), Node(3)]
+        l.insert(None, n[0])
+        self.checkList(l, n[0:1])
+        l.insert(None, n[1])
+        self.checkList(l, n[:2])
+        l.insert(n[1], n[3])
+        self.checkList(l, n[:2] + n[3:])
+        l.insert(n[1], n[2])
+        self.checkList(l, n)
+
 
 if __name__ == '__main__':
     unittest.main()
