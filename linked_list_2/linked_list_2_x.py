@@ -1,40 +1,24 @@
-from linked_list_2 import Node
+class Node:
+    def __init__(self, v):
+        self.value = v
+        self.prev = None
+        self.next = None
 
 class LinkedList2:  
     def __init__(self):
         self.dummy = Node(None)
-        self.head = None
-        self.tail = None
-    
-    @property
-    def head(self):
-        return self.dummy.next
-
-    @property
-    def tail(self):
-        return self.dummy.prev
-
-    @head.setter
-    def head(self, val):
-        self.dummy.next = val
-
-    @tail.setter
-    def tail(self, val):
-        self.dummy.prev = val
+        self.dummy.prev = self.dummy
+        self.dummy.next = self.dummy
 
     def add_in_tail(self, item):
-        if self.head is None:
-            self.head = item
-            item.prev = None
-            item.next = None
-        else:
-            self.tail.next = item
-            item.prev = self.tail
-        self.tail = item
+        self.dummy.prev.next = item
+        item.prev = self.dummy.prev
+        item.next = self.dummy
+        self.dummy.prev = item
 
     def find(self, val):
-        node = self.head
-        while node is not None:
+        node = self.dummy.next
+        while node is not self.dummy:
             if node.value == val:
                 return node
             node = node.next
@@ -42,64 +26,48 @@ class LinkedList2:
 
     def find_all(self, val):
         result = []
-        node = self.head
-        while node is not None:
+        node = self.dummy.next
+        while node is not self.dummy:
             if node.value == val:
                 result.append(node)
             node = node.next
         return result
 
     def delete(self, val, all=False):
-        if all:
-            nodes = self.find_all(val)
-        else:
-            nodes = [self.find(val)]
-        if nodes == [] or nodes == [None]:
-            return
-        for node in nodes:
-            if self.head is self.tail:
-                self.head = None
-                self.tail = None
-            elif node is self.head:
-                self.head = node.next
-                self.head.prev = None
-                node.next = None
-            elif node is self.tail:
-                self.tail = node.prev
-                self.tail.next = None
-                node.prev = None
+        last = self.dummy
+        node = last.next
+        flag = True
+        while (node is not self.dummy) and flag:
+            if node.value == val:
+                last.next = node.next
+                node.next.prev = last
+                flag = all
             else:
-                node.prev.next = node.next
-                node.next.prev = node.prev
-                node.prev = None
-                node.next = None
+                last = node
+            node = node.next
 
     def clean(self):
-        self.head = None
-        self.tail = None
+        self.dummy.prev = self.dummy
+        self.dummy.next = self.dummy
 
     def len(self):
         count = 0
-        node = self.head
-        while node is not None:
+        node = self.dummy.next
+        while node is not self.dummy:
             count += 1
             node = node.next
         return count
 
     def insert(self, afterNode, newNode):
-        if (afterNode is None) or (afterNode is self.tail):
-            self.add_in_tail(newNode)
-        else:
-            newNode.next = afterNode.next
-            afterNode.next.prev = newNode
-            afterNode.next = newNode
-            newNode.prev = afterNode
+        if afterNode is None:
+            afterNode = self.dummy.prev
+        newNode.next = afterNode.next
+        afterNode.next.prev = newNode
+        afterNode.next = newNode
+        newNode.prev = afterNode
 
     def add_in_head(self, newNode):
-        if self.head is None:
-            self.add_in_tail(newNode)
-        else:
-            newNode.prev = None
-            newNode.next = self.head
-            self.head.prev = newNode
-            self.head = newNode
+        newNode.next = self.dummy.next
+        self.dummy.next.prev = newNode
+        self.dummy.next = newNode
+        newNode.prev = self.dummy

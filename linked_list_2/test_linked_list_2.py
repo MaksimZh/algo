@@ -13,22 +13,6 @@ def fillListTail(l, source):
 
 class Test(unittest.TestCase):
 
-    def checkList(self, l, test):
-        if not test:
-            self.assertIsNone(l.head)
-            self.assertIsNone(l.tail)
-        else:
-            last = None
-            node = l.head
-            i = 0
-            while node is not None:
-                self.assertIs(node, test[i])
-                self.assertIs(node.prev, last)
-                i += 1
-                last = node
-                node = node.next
-            self.assertIs(l.tail, test[-1])
-
     def test_add_in_tail(self):
         l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(3)]
@@ -159,8 +143,36 @@ class Test(unittest.TestCase):
 class TestSimple(Test):
     LinkedList = linked_list_2.LinkedList2
 
+    def checkList(self, l, test):
+        if not test:
+            self.assertIsNone(l.head)
+            self.assertIsNone(l.tail)
+        else:
+            last = None
+            node = l.head
+            i = 0
+            while node is not None:
+                self.assertIs(node, test[i])
+                self.assertIs(node.prev, last)
+                i += 1
+                last = node
+                node = node.next
+            self.assertIs(l.tail, test[-1])
+
 class TestDummy(Test):
     LinkedList = linked_list_2_x.LinkedList2
+
+    def checkList(self, l, test):
+        last = l.dummy
+        node = l.dummy.next
+        i = 0
+        while node is not l.dummy:
+            self.assertIs(node, test[i])
+            self.assertIs(node.prev, last)
+            i += 1
+            last = node
+            node = node.next
+        self.assertEqual(i, len(test))
 
 
 del Test
