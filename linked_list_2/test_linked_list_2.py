@@ -1,6 +1,7 @@
 import unittest
 
-from linked_list_2 import Node, LinkedList2
+import linked_list_2
+Node = linked_list_2.Node
 
 
 def fillListTail(l, source):
@@ -11,7 +12,7 @@ def fillListTail(l, source):
 class Test(unittest.TestCase):
 
     def test_add_in_tail(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(3)]
         self.checkList(l, [])
         l.add_in_tail(n[0])
@@ -22,7 +23,7 @@ class Test(unittest.TestCase):
         self.checkList(l, n)
 
     def test_find(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(3)]
         self.assertIs(l.find(42), None)
         fillListTail(l, n[0:1])
@@ -33,7 +34,7 @@ class Test(unittest.TestCase):
         self.assertIs(l.find(2), n[2])
 
     def test_find_all(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(2), Node(1), Node(3)]
         self.assertListEqual(l.find_all(42), [])
         fillListTail(l, n[0:1])
@@ -47,7 +48,7 @@ class Test(unittest.TestCase):
         self.assertListEqual(l.find_all(3), n[-1:])
 
     def test_delete(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(3), Node(2)]
         fillListTail(l, n)
         l.delete(42)
@@ -68,7 +69,7 @@ class Test(unittest.TestCase):
         self.checkList(l, [])
 
     def test_delete_all(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(0), Node(1), Node(1), Node(4), Node(2), Node(3), Node(3), Node(2)]
         fillListTail(l, n)
         l.delete(42, all=True)
@@ -92,7 +93,7 @@ class Test(unittest.TestCase):
         self.checkList(l, [])
 
     def test_insert(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1), Node(2), Node(3)]
         l.insert(None, n[0])
         self.checkList(l, n[0:1])
@@ -104,7 +105,7 @@ class Test(unittest.TestCase):
         self.checkList(l, n)
 
     def test_add_in_head(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         n = [Node(0), Node(1)]
         self.checkList(l, [])
         l.add_in_head(n[1])
@@ -113,7 +114,7 @@ class Test(unittest.TestCase):
         self.checkList(l, n)
 
     def test_clean(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         l.clean()
         self.checkList(l, [])
         fillListTail(l, [Node(1)])
@@ -127,7 +128,7 @@ class Test(unittest.TestCase):
         self.checkList(l, [])
     
     def test_len(self):
-        l = LinkedList2()
+        l = self.LinkedList()
         self.assertEqual(l.len(), 0)
         l.add_in_tail(Node(1))
         self.assertEqual(l.len(), 1)
@@ -138,6 +139,8 @@ class Test(unittest.TestCase):
 
 
 class TestSimple(Test):
+    LinkedList = linked_list_2.LinkedList2
+
     def checkList(self, l, test):
         if not test:
             self.assertIsNone(l.head)
