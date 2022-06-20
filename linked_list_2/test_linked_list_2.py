@@ -1,6 +1,8 @@
 import unittest
 
 import linked_list_2
+import linked_list_2_x
+
 Node = linked_list_2.Node
 
 
@@ -10,6 +12,22 @@ def fillListTail(l, source):
 
 
 class Test(unittest.TestCase):
+
+    def checkList(self, l, test):
+        if not test:
+            self.assertIsNone(l.head)
+            self.assertIsNone(l.tail)
+        else:
+            last = None
+            node = l.head
+            i = 0
+            while node is not None:
+                self.assertIs(node, test[i])
+                self.assertIs(node.prev, last)
+                i += 1
+                last = node
+                node = node.next
+            self.assertIs(l.tail, test[-1])
 
     def test_add_in_tail(self):
         l = self.LinkedList()
@@ -141,21 +159,8 @@ class Test(unittest.TestCase):
 class TestSimple(Test):
     LinkedList = linked_list_2.LinkedList2
 
-    def checkList(self, l, test):
-        if not test:
-            self.assertIsNone(l.head)
-            self.assertIsNone(l.tail)
-        else:
-            last = None
-            node = l.head
-            i = 0
-            while node is not None:
-                self.assertIs(node, test[i])
-                self.assertIs(node.prev, last)
-                i += 1
-                last = node
-                node = node.next
-            self.assertIs(l.tail, test[-1])
+class TestDummy(Test):
+    LinkedList = linked_list_2_x.LinkedList2
 
 
 del Test
