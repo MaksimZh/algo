@@ -128,6 +128,30 @@ class Test(unittest.TestCase):
         l.add_in_head(n[0])
         self.checkList(l, n)
 
+    def test_clean(self):
+        l = LinkedList2()
+        l.clean()
+        self.checkList(l, [])
+        fillListTail(l, [Node(1)])
+        l.clean()
+        self.checkList(l, [])
+        fillListTail(l, [Node(1), Node(2)])
+        l.clean()
+        self.checkList(l, [])
+        fillListTail(l, [Node(1), Node(2), Node(3)])
+        l.clean()
+        self.checkList(l, [])
+    
+    def test_len(self):
+        l = LinkedList2()
+        self.assertEqual(l.len(), 0)
+        l.add_in_tail(Node(1))
+        self.assertEqual(l.len(), 1)
+        l.add_in_tail(Node(2))
+        self.assertEqual(l.len(), 2)
+        l.add_in_tail(Node(3))
+        self.assertEqual(l.len(), 3)
+
 
 if __name__ == '__main__':
     unittest.main()
