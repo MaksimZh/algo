@@ -4,9 +4,12 @@ class Node:
         self.prev = None
         self.next = None
 
+class DummyNode(Node):
+    pass
+
 class LinkedList2:  
     def __init__(self):
-        self.dummy = Node(None)
+        self.dummy = DummyNode(None)
         self.dummy.prev = self.dummy
         self.dummy.next = self.dummy
 
@@ -18,7 +21,7 @@ class LinkedList2:
 
     def find(self, val):
         node = self.dummy.next
-        while node is not self.dummy:
+        while type(node) is not DummyNode:
             if node.value == val:
                 return node
             node = node.next
@@ -27,7 +30,7 @@ class LinkedList2:
     def find_all(self, val):
         result = []
         node = self.dummy.next
-        while node is not self.dummy:
+        while type(node) is not DummyNode:
             if node.value == val:
                 result.append(node)
             node = node.next
@@ -37,7 +40,7 @@ class LinkedList2:
         last = self.dummy
         node = last.next
         flag = True
-        while (node is not self.dummy) and flag:
+        while (type(node) is not DummyNode) and flag:
             if node.value == val:
                 last.next = node.next
                 node.next.prev = last
@@ -53,7 +56,7 @@ class LinkedList2:
     def len(self):
         count = 0
         node = self.dummy.next
-        while node is not self.dummy:
+        while type(node) is not DummyNode:
             count += 1
             node = node.next
         return count

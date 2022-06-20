@@ -159,6 +159,8 @@ class TestSimple(Test):
                 node = node.next
             self.assertIs(l.tail, test[-1])
 
+DummyNode = linked_list_2_x.DummyNode
+
 class TestDummy(Test):
     LinkedList = linked_list_2_x.LinkedList2
 
@@ -166,7 +168,7 @@ class TestDummy(Test):
         last = l.dummy
         node = l.dummy.next
         i = 0
-        while node is not l.dummy:
+        while type(node) is not DummyNode:
             self.assertIs(node, test[i])
             self.assertIs(node.prev, last)
             i += 1
