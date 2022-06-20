@@ -165,8 +165,8 @@ class TestDummy(Test):
     LinkedList = linked_list_2_x.LinkedList2
 
     def checkList(self, l, test):
-        last = l.dummy
-        node = l.dummy.next
+        last = l.head
+        node = l.head.next
         i = 0
         while type(node) is not DummyNode:
             self.assertIs(node, test[i])
@@ -175,6 +175,7 @@ class TestDummy(Test):
             last = node
             node = node.next
         self.assertEqual(i, len(test))
+        self.assertIs(node, l.tail)
 
 
 del Test

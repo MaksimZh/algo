@@ -9,18 +9,21 @@ class DummyNode(Node):
 
 class LinkedList2:  
     def __init__(self):
-        self.dummy = DummyNode(None)
-        self.dummy.prev = self.dummy
-        self.dummy.next = self.dummy
+        self.head = DummyNode(None)
+        self.tail = DummyNode(None)
+        self.head.prev = None
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.tail.next = None
 
     def add_in_tail(self, item):
-        self.dummy.prev.next = item
-        item.prev = self.dummy.prev
-        item.next = self.dummy
-        self.dummy.prev = item
+        self.tail.prev.next = item
+        item.prev = self.tail.prev
+        item.next = self.tail
+        self.tail.prev = item
 
     def find(self, val):
-        node = self.dummy.next
+        node = self.head.next
         while type(node) is not DummyNode:
             if node.value == val:
                 return node
@@ -29,7 +32,7 @@ class LinkedList2:
 
     def find_all(self, val):
         result = []
-        node = self.dummy.next
+        node = self.head.next
         while type(node) is not DummyNode:
             if node.value == val:
                 result.append(node)
@@ -37,8 +40,8 @@ class LinkedList2:
         return result
 
     def delete(self, val, all=False):
-        last = self.dummy
-        node = last.next
+        last = self.head
+        node = self.head.next
         flag = True
         while (type(node) is not DummyNode) and flag:
             if node.value == val:
@@ -50,12 +53,12 @@ class LinkedList2:
             node = node.next
 
     def clean(self):
-        self.dummy.prev = self.dummy
-        self.dummy.next = self.dummy
+        self.head.next = self.tail
+        self.tail.prev = self.head
 
     def len(self):
         count = 0
-        node = self.dummy.next
+        node = self.head.next
         while type(node) is not DummyNode:
             count += 1
             node = node.next
@@ -63,14 +66,14 @@ class LinkedList2:
 
     def insert(self, afterNode, newNode):
         if afterNode is None:
-            afterNode = self.dummy.prev
+            afterNode = self.tail.prev
         newNode.next = afterNode.next
         afterNode.next.prev = newNode
         afterNode.next = newNode
         newNode.prev = afterNode
 
     def add_in_head(self, newNode):
-        newNode.next = self.dummy.next
-        self.dummy.next.prev = newNode
-        self.dummy.next = newNode
-        newNode.prev = self.dummy
+        newNode.next = self.head.next
+        self.head.next.prev = newNode
+        self.head.next = newNode
+        newNode.prev = self.head
