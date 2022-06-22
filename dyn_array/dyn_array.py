@@ -2,11 +2,6 @@ import ctypes
 
 class DynArray:
 
-    min_fill = 0.5
-    min_cap = 16
-    extend_factor = 2
-    shrink_factor = 1/1.5
-    
     def __init__(self):
         self.count = 0
         self.capacity = self.min_cap
@@ -29,19 +24,6 @@ class DynArray:
             new_array[i] = self.array[i]
         self.array = new_array
         self.capacity = new_capacity
-
-    def _extend(self):
-        new_size = int(self.extend_factor * self.capacity)
-        self.resize(new_size)
-
-    def _shrink_if_needed(self):
-        if (self.capacity == self.min_cap) or \
-            (self.count >= self.min_fill * self.capacity):
-            return
-        new_size = int(self.shrink_factor * self.capacity)
-        if new_size < self.min_cap:
-            new_size = self.min_cap
-        self.resize(new_size)
 
     def append(self, itm):
         if self.count == self.capacity:
@@ -66,3 +48,21 @@ class DynArray:
             self.array[j] = self.array[j + 1]
         self.count -= 1
         self._shrink_if_needed()
+
+    min_fill = 0.5
+    min_cap = 16
+    extend_factor = 2
+    shrink_factor = 1/1.5
+    
+    def _extend(self):
+        new_size = int(self.extend_factor * self.capacity)
+        self.resize(new_size)
+
+    def _shrink_if_needed(self):
+        if (self.capacity == self.min_cap) or \
+            (self.count >= self.min_fill * self.capacity):
+            return
+        new_size = int(self.shrink_factor * self.capacity)
+        if new_size < self.min_cap:
+            new_size = self.min_cap
+        self.resize(new_size)
