@@ -29,15 +29,17 @@ class Test(unittest.TestCase):
         a.append(16)
         self.checkArray(a, 32, range(0, 17))
 
-
     def test_insert(self):
         a = DynArray()
+        self.assertRaises(IndexError, a.insert, 1, 42)
         a.insert(0, 1)
         self.checkArray(a, 16, [1])
+        self.assertRaises(IndexError, a.insert, 2, 42)
         a.insert(0, 2)
         self.checkArray(a, 16, [2, 1])
         a.insert(1, 3)
         self.checkArray(a, 16, [2, 3, 1])
+        self.assertRaises(IndexError, a.insert, 100, 42)
         a.insert(3, 4)
         self.checkArray(a, 16, [2, 3, 1, 4])
         a = DynArray()
@@ -52,14 +54,6 @@ class Test(unittest.TestCase):
         addItems(a, range(0, 16))
         a.insert(16, 42)
         self.checkArray(a, 32, [*range(0, 16), 42])
-
-    """
-    def test_insert_except(self):
-        a = DynArray()
-        try:
-            a.insert(1, 42)
-        except IndexError:
-    """ 
 
 
 if __name__ == '__main__':
