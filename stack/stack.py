@@ -1,25 +1,24 @@
 class Stack:
     def __init__(self):
         self.top = LastNode(None)
+        self.top.next = self.top
+        self._size = 0
 
     def size(self):
-        count = 0
-        node = self.top
-        while type(node) is not LastNode:
-            node = node.next
-            count += 1
-        return count
+        return self._size
 
     def pop(self):
         node = self.top
-        if type(node) is not LastNode:
+        if self._size > 0:
             self.top = node.next
+            self._size -= 1
         return node.value
 
     def push(self, value):
         node = Node(value)
         node.next = self.top
         self.top = node
+        self._size += 1
 
     def peek(self):
         return self.top.value
