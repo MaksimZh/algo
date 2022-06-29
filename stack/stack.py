@@ -1,7 +1,6 @@
 class Stack:
     def __init__(self):
         self.top = LastNode(None)
-        self.top.next = self.top
         self._size = 0
 
     def size(self):
