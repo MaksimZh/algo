@@ -10,7 +10,7 @@ def paren_balanced(src):
             s.pop()
         else:
             return False
-    return s.peek() is None
+    return s.size() == 0
 
 
 def stack_eval(src):
