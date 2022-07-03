@@ -11,10 +11,12 @@ class OrderedList:
         self.__ascending = asc
 
     def compare(self, v1, v2):
-        return 0
-        # -1 если v1 < v2
-        # 0 если v1 == v2
-        # +1 если v1 > v2
+        if v1 < v2:
+            return -1
+        elif v1 == v2:
+            return 0
+        else:
+            return 1
 
     def add(self, value):
         pass
