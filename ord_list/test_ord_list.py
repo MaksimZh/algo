@@ -11,6 +11,14 @@ class TestOrderedList(unittest.TestCase):
     def checkList(self, ol, test):
         self.assertEqual(ol.len(), len(test))
         nodes = ol.get_all()
+        if len(nodes) > 0:
+            self.assertIs(ol.head, nodes[0])
+            self.assertIs(ol.tail, nodes[-1])
+            self.assertIsNone(nodes[0].prev)
+            self.assertIsNone(nodes[-1].next)
+        else:
+            self.assertIsNone(ol.head)
+            self.assertIsNone(ol.tail)
         for i in range(1, len(nodes)):
             self.assertIs(nodes[i].prev, nodes[i - 1])
             self.assertIs(nodes[i - 1].next, nodes[i])
