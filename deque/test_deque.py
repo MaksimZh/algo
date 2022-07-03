@@ -1,8 +1,9 @@
 import unittest
 
 from deque import Deque
+from palindrom import isPalindrom
 
-class Test(unittest.TestCase):
+class TestQueue(unittest.TestCase):
 
     def test_0(self):
         d = Deque()
@@ -82,6 +83,19 @@ class Test(unittest.TestCase):
         self.assertEqual(d.size(), 1)
         self.assertEqual(d.removeTail(), 9)
         self.assertEqual(d.size(), 0)
+
+
+class TestPalindrom(unittest.TestCase):
+
+    def test(self):
+        self.assertTrue(isPalindrom(""))
+        self.assertTrue(isPalindrom("a"))
+        self.assertTrue(isPalindrom("aba"))
+        self.assertTrue(isPalindrom("abcacbcacba"))
+        self.assertFalse(isPalindrom("ab"))
+        self.assertFalse(isPalindrom("abab"))
+        self.assertFalse(isPalindrom("aaba"))
+        self.assertFalse(isPalindrom("abacbcacba"))
 
 
 if __name__ == "__main__":
