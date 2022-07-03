@@ -25,7 +25,7 @@ class OrderedList:
 
     def add(self, value):
         node = self.head.next
-        compareContinue = -1 if self.__ascending else 1
+        compareContinue = 1 if self.__ascending else -1
         while type(node) is not DummyNode:
             if self.compare(value, node.value) != compareContinue:
                 break
@@ -37,17 +37,35 @@ class OrderedList:
         newNode.next.prev = newNode
 
     def find(self, val):
-        return None # здесь будет ваш код
+        node = self.head.next
+        compareContinue = 1 if self.__ascending else -1
+        while type(node) is not DummyNode:
+            cmp = self.compare(val, node.value)
+            if cmp == 0:
+                return node
+            elif cmp != compareContinue:
+                break
+            node = node.next
+        return None
 
     def delete(self, val):
-        pass # здесь будет ваш код
+        node = self.find(val)
+        if node is not None:
+            node.prev.next = node.next
+            node.next.prev = node.prev
 
     def clean(self, asc):
+        self.head.next = self.tail
+        self.tail.prev = self.head
         self.__ascending = asc
-        pass # здесь будет ваш код
 
     def len(self):
-        return 0 # здесь будет ваш код
+        count = 0
+        node = self.head.next
+        while type(node) is not DummyNode:
+            count += 1
+            node = node.next
+        return count
 
     def get_all(self):
         r = []
