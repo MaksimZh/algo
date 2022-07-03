@@ -80,5 +80,25 @@ class OrderedStringList(OrderedList):
         super(OrderedStringList, self).__init__(asc)
 
     def compare(self, v1, v2):
-        # переопределённая версия для строк
-        return 0
+        v1 = trim(v1)
+        v2 = trim(v2)
+        for i in range(0, min(len(v1), len(v2))):
+            if v1[i] < v2[i]:
+                return -1
+            elif v1[i] > v2[i]:
+                return 1
+        if len(v1) < len(v2):
+            return -1
+        elif len(v1) == len(v2):
+            return 0
+        else:
+            return 1
+
+def trim(v):
+    f = len(v) - 1
+    while f >= 0 and v[f] == " ":
+        f -= 1
+    s = 0
+    while s < f and v[s] == " ":
+        s += 1
+    return v[s : f + 1]
