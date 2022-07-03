@@ -4,10 +4,15 @@ class Node:
         self.prev = None
         self.next = None
 
+class DummyNode(Node):
+    pass
+
 class OrderedList:
     def __init__(self, asc):
-        self.head = None
-        self.tail = None
+        self.head = DummyNode(None)
+        self.tail = DummyNode(None)
+        self.head.next = self.tail
+        self.tail.prev = self.head
         self.__ascending = asc
 
     def compare(self, v1, v2):
@@ -19,9 +24,17 @@ class OrderedList:
             return 1
 
     def add(self, value):
-        pass
-        # автоматическая вставка value 
-        # в нужную позицию
+        node = self.head.next
+        compareContinue = -1 if self.__ascending else 1
+        while type(node) is not DummyNode:
+            if self.compare(value, node.value) != compareContinue:
+                break
+            node = node.next
+        newNode = Node(value)
+        newNode.prev = node.prev
+        newNode.next = node
+        newNode.prev.next = newNode
+        newNode.next.prev = newNode
 
     def find(self, val):
         return None # здесь будет ваш код
@@ -38,8 +51,8 @@ class OrderedList:
 
     def get_all(self):
         r = []
-        node = self.head
-        while node != None:
+        node = self.head.next
+        while type(node) is not DummyNode:
             r.append(node)
             node = node.next
         return r
