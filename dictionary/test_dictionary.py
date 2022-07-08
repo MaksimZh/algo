@@ -29,7 +29,8 @@ class Test(unittest.TestCase):
         for k, v in kv.items():
             self.assertTrue(d.is_key(k))
             self.assertEqual(d.get(k), v)
-
+        self.assertFalse(d.is_key("foo"))
+        self.assertIsNone(d.get("foo"))
 
 if __name__ == "__main__":
     unittest.main()
