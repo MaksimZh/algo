@@ -29,12 +29,12 @@ class Test(unittest.TestCase):
         s = PowerSet()
         for i in range(20000):
             s.put(i)
-        self.assertEqual(s.size(), 20000)
+            self.assertEqual(s.size(), i + 1)
         for i in range(20000):
             self.assertTrue(s.get(i))
         for i in range(20000):
             self.assertTrue(s.remove(i))
-        self.assertEqual(s.size(), 0)
+            self.assertEqual(s.size(), 20000 - i - 1)
 
     def test_intersection(self):
         a = PowerSet()
