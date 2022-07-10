@@ -42,7 +42,7 @@ class PowerSet:
         return result
 
     def issubset(self, set2):
-        # возвращает True, если set2 есть
-        # подмножество текущего множества,
-        # иначе False
-        return False
+        for key in set2.items.keys():
+            if not self.get(key):
+                return False
+        return True

@@ -193,5 +193,30 @@ class Test(unittest.TestCase):
         self.assertEqual(r.size(), 0)
 
 
+    def test_issubset(self):
+        a = PowerSet()
+        for i in [1, 2, 3, 4, 5]:
+            a.put(i)
+        b = PowerSet()
+        for i in [3, 5, 7, 9]:
+            b.put(i)
+        c = PowerSet()
+        d = PowerSet()
+        for i in [6, 7, 8, 9]:
+            d.put(i)
+        e = PowerSet()
+        for i in [2, 3, 4]:
+            e.put(i)
+        
+        self.assertFalse(a.issubset(b))
+        self.assertFalse(b.issubset(a))
+        self.assertTrue(a.issubset(c))
+        self.assertFalse(c.issubset(a))
+        self.assertFalse(a.issubset(d))
+        self.assertFalse(d.issubset(a))
+        self.assertTrue(a.issubset(e))
+        self.assertFalse(e.issubset(a))
+
+
 if __name__ == "__main__":
     unittest.main()
