@@ -36,6 +36,7 @@ class Test(unittest.TestCase):
             self.assertTrue(s.remove(i))
             self.assertEqual(s.size(), 20000 - i - 1)
 
+
     def test_intersection(self):
         a = PowerSet()
         for i in [1, 2, 3, 4, 5]:
@@ -138,6 +139,58 @@ class Test(unittest.TestCase):
         self.assertEqual(r.size(), 5)
         for i in [1, 2, 3, 4, 5]:
             self.assertTrue(r.get(i))
+
+
+    def test_difference(self):
+        a = PowerSet()
+        for i in [1, 2, 3, 4, 5]:
+            a.put(i)
+        b = PowerSet()
+        for i in [3, 5, 7, 9]:
+            b.put(i)
+        c = PowerSet()
+        d = PowerSet()
+        for i in [6, 7, 8, 9]:
+            d.put(i)
+        e = PowerSet()
+        for i in [2, 3, 4]:
+            e.put(i)
+        
+        r = a.difference(b)
+        self.assertEqual(r.size(), 3)
+        for i in [1, 2, 4]:
+            self.assertTrue(r.get(i))
+        
+        r = b.difference(a)
+        self.assertEqual(r.size(), 2)
+        for i in [7, 9]:
+            self.assertTrue(r.get(i))
+
+        r = a.difference(c)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
+            self.assertTrue(r.get(i))
+
+        r = c.difference(a)
+        self.assertEqual(r.size(), 0)
+
+        r = a.difference(d)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
+            self.assertTrue(r.get(i))
+
+        r = d.difference(a)
+        self.assertEqual(r.size(), 4)
+        for i in [6, 7, 8, 9]:
+            self.assertTrue(r.get(i))
+
+        r = a.difference(e)
+        self.assertEqual(r.size(), 2)
+        for i in [1, 5]:
+            self.assertTrue(r.get(i))
+
+        r = e.difference(a)
+        self.assertEqual(r.size(), 0)
 
 
 if __name__ == "__main__":

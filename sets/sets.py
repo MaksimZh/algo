@@ -35,8 +35,11 @@ class PowerSet:
         return result
 
     def difference(self, set2):
-        # разница текущего множества и set2
-        return None
+        result = PowerSet()
+        for key in self.items.keys():
+            if not set2.get(key):
+                result.put(key)
+        return result
 
     def issubset(self, set2):
         # возвращает True, если set2 есть
