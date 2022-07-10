@@ -27,8 +27,12 @@ class PowerSet:
         return result
 
     def union(self, set2):
-        # объединение текущего множества и set2
-        return None
+        result = PowerSet()
+        for key in self.items.keys():
+            result.put(key)
+        for key in set2.items.keys():
+            result.put(key)
+        return result
 
     def difference(self, set2):
         # разница текущего множества и set2

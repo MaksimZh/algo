@@ -67,8 +67,51 @@ class Test(unittest.TestCase):
         r = a.intersection(d)
         self.assertEqual(r.size(), 0)
 
-        r = c.intersection(d)
+        r = d.intersection(a)
         self.assertEqual(r.size(), 0)
+
+
+    def test_union(self):
+        a = PowerSet()
+        for i in [1, 2, 3, 4, 5]:
+            a.put(i)
+        b = PowerSet()
+        for i in [3, 5, 7, 9]:
+            b.put(i)
+        c = PowerSet()
+        d = PowerSet()
+        for i in [6, 7, 8, 9]:
+            d.put(i)
+
+        r = a.union(b)
+        self.assertEqual(r.size(), 7)
+        for i in [1, 2, 3, 4, 5, 7, 9]:
+            self.assertTrue(r.get(i))
+        
+        r = b.union(a)
+        self.assertEqual(r.size(), 7)
+        for i in [1, 2, 3, 4, 5, 7, 9]:
+            self.assertTrue(r.get(i))
+
+        r = a.union(c)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
+            self.assertTrue(r.get(i))
+
+        r = c.union(a)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
+            self.assertTrue(r.get(i))
+
+        r = a.union(d)
+        self.assertEqual(r.size(), 9)
+        for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            self.assertTrue(r.get(i))
+
+        r = d.union(a)
+        self.assertEqual(r.size(), 9)
+        for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            self.assertTrue(r.get(i))
 
 
 if __name__ == "__main__":
