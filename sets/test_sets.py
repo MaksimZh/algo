@@ -47,6 +47,9 @@ class Test(unittest.TestCase):
         d = PowerSet()
         for i in [6, 7, 8, 9]:
             d.put(i)
+        e = PowerSet()
+        for i in [2, 3, 4]:
+            e.put(i)
 
         r = a.intersection(b)
         self.assertEqual(r.size(), 2)
@@ -70,6 +73,16 @@ class Test(unittest.TestCase):
         r = d.intersection(a)
         self.assertEqual(r.size(), 0)
 
+        r = a.intersection(e)
+        self.assertEqual(r.size(), 3)
+        for i in [2, 3, 4]:
+            self.assertTrue(r.get(i))
+
+        r = e.intersection(a)
+        self.assertEqual(r.size(), 3)
+        for i in [2, 3, 4]:
+            self.assertTrue(r.get(i))
+
 
     def test_union(self):
         a = PowerSet()
@@ -82,7 +95,10 @@ class Test(unittest.TestCase):
         d = PowerSet()
         for i in [6, 7, 8, 9]:
             d.put(i)
-
+        e = PowerSet()
+        for i in [2, 3, 4]:
+            e.put(i)
+        
         r = a.union(b)
         self.assertEqual(r.size(), 7)
         for i in [1, 2, 3, 4, 5, 7, 9]:
@@ -111,6 +127,16 @@ class Test(unittest.TestCase):
         r = d.union(a)
         self.assertEqual(r.size(), 9)
         for i in [1, 2, 3, 4, 5, 6, 7, 8, 9]:
+            self.assertTrue(r.get(i))
+
+        r = a.union(e)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
+            self.assertTrue(r.get(i))
+
+        r = e.union(a)
+        self.assertEqual(r.size(), 5)
+        for i in [1, 2, 3, 4, 5]:
             self.assertTrue(r.get(i))
 
 
