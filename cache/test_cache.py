@@ -42,7 +42,29 @@ class Test(unittest.TestCase):
             "edf": 5,
             "fcd": 6,
         }
-
+        for k, v in kv.items():
+            d.put(k, v)
+        for k, v in kv.items():
+            for i in range(v):
+                d.get(k)
+        d.put("fab", 42)
+        del kv["abc"]
+        kv["fab"] = 42
+        for k, v in kv.items():
+            self.assertTrue(d.is_key(k))
+            self.assertEqual(d.get(k), v)
+        self.assertFalse(d.is_key("abc"))
+        for i in range(7):
+            d.get("fab")
+        d.put("feb", 43)
+        d.put("fed", 44)
+        del kv["def"]
+        kv["fed"] = 44
+        for k, v in kv.items():
+            self.assertTrue(d.is_key(k))
+            self.assertEqual(d.get(k), v)
+        self.assertFalse(d.is_key("def"))
+        self.assertFalse(d.is_key("feb"))
 
 if __name__ == "__main__":
     unittest.main()
