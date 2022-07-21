@@ -42,12 +42,12 @@ class LinkedList2:
     def delete(self, val, all=False):
         last = self.head
         node = self.head.next
-        flag = True
-        while (type(node) is not DummyNode) and flag:
+        done = False
+        while (type(node) is not DummyNode) and done:
             if node.value == val:
                 last.next = node.next
                 node.next.prev = last
-                flag = all
+                done = not all
             else:
                 last = node
             node = node.next

@@ -13,11 +13,11 @@ class TestHashTable(unittest.TestCase):
     def test_hash_fun(self):
         ht = HashTable(sz=17, stp=3)
         hashes = [ht.hash_fun(v) for v in self.values]
-        flags = [False] * ht.size
+        found = [False] * ht.size
         for h in hashes:
-            flags[h] = True
+            found[h] = True
             self.assertTrue(h >= 0 and h < ht.size)
-        self.assertTrue(all(flags))
+        self.assertTrue(all(found))
 
     def test_seek_slot_put(self):
         ht = HashTable(sz=7, stp=3)
